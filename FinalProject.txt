@@ -1,0 +1,62 @@
+
+========================OVERVIEW OF PROJECT===========================
+
+	My goal for this project was to create an object oriented
+gravitational and collision physics engine using the Qt framework to
+control and animate it. There is a game object which acts as the
+container for the level objects and the master controller for user
+interface, all object movements and collisions and displays the
+graphical representation of the game.
+
+The game builds each level from its own txt file formatted to desribe
+the position, dimensions and mass (unused in final build) of each ball
+and block in the level. The user can then set the launch power and
+angle of the playerBall and launch the ball with that velocity vector.
+The animation of the ball movements and collisions happens on the
+timeout of a QTimer object.
+
+Upon timeout of the QTimer, the collisionHandler() function initiates
+the collision detection algorithm for the span of each frame. Starting
+with the goalBlock, then with each of the levelBlocks, the game object
+checks to see if the playeBall collides with them. If one or more of
+the objects lies in the projected path of the playerBall, the one that
+would hit first is resolved by moving a portion of the way along the
+span of the frame until it is flush with the block. Then the ball's
+velocity resulting from the collision is resolved. The collisionHandler
+then is called for the remaining portion of the span of a frame,
+repeating until the full span of the frame is completed.
+
+If the object of the collision is the goalblock, the timer is stopped,
+the current level advanced and the level is wiped and rebuilt for the
+new level after the user is shown a winning message box. When there
+are no more levels, a GAME OVER screen is presented.
+
+The algorithms for collision detection are optimised by skipping the
+more complicated calculations when more simple ones prove a collision
+to be impossible.
+
+The ball's motion is animated by moving the playerBall along the
+direction of its velocity vector on each frame unless a collision
+occurs (in the fashion described previously). At the end of each call
+to move the ball, the y component of the velocity is increased to
+simulate gravitational acceleration. Momentum loss due to friction
+is also simulated upon each collision relative to the direction of
+the normal of the collision. The result is a relatively realistic
+simulation of an actual bouncing elastic ball.
+
+As implied, each of the levels has a goalblock with the aim of each
+level being to collide the ball with that block. It allows for basic
+gameplay and different level of difficulty.
+
+While I had hoped to flesh out the gameplay a bit more, adding in
+additional non-player balls as obstacles as well as moving blocks, I
+ran out of time. But I met my original goal, and I have a new toy to
+play with and add features to over the summer, so I consider it a
+success overall. Hopefully you all agree!
+
+==============================Objects=================================
+				game
+				ball
+				block
+				vec2D
+			     velocityText
